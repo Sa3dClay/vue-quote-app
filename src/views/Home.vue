@@ -1,18 +1,97 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header :quoteCounter="quotes.length" :maxNofQuotes="maxQuotes"/>
+    
+    <NewQuote @newQuote="addQuote"/>
+    
+    <QuoteGrid :quotes="quotes" @deleteQuote="deleteQuote"/>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="alert alert-danger text-center" role="alert">Click on Quote to delete it</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import QuoteGrid from '@/components/QuoteGrid.vue'
+import NewQuote from '@/components/NewQuote.vue'
+import Header from '@/components/Header.vue'
+
+import Swal from 'sweetalert2'
 
 export default {
   name: 'Home',
+  
   components: {
-    HelloWorld
+    QuoteGrid,
+    NewQuote,
+    Header
+  },
+
+  data () {
+    return {
+      quotes: [
+        'This is test quote'
+      ],
+      maxQuotes: 12
+    }
+  },
+
+  methods: {
+    addQuote (quote) {
+      if (this.quotes.length >= this.maxQuotes) {
+        Swal.fire({
+          title: `You can't create a new quote!`,
+          text: `please delete some quotes.`,
+          icon: 'info'
+        })
+      } else {
+        if(quote.length <= 0) {
+          Swal.fire({
+            title: `Your quote is empty!`,
+            text: `please type something.`,
+            icon: 'info'
+          })
+        } else {
+          this.quotes.push(quote)
+        }
+      }
+    },
+
+    deleteQuote (index) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#EF5350',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+
+          this.quotes.splice(index, 1)
+
+          Swal.fire({
+            title: 'Your quote has been deleted.',
+            showConfirmButton: false,
+            icon: 'success',
+            timer: 1000
+          })
+        }
+      })
+    }
   }
 }
 </script>
+
+<style scoped>
+.alert {
+  font-family: 'Indie Flower', cursive;
+  font-size: 22px;
+  padding: 10px;
+  margin: 0;
+}
+</style>
