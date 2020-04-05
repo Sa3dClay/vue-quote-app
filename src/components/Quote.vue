@@ -1,7 +1,7 @@
 <template>
   <div class="quote">
     <div class="quote-content">
-      <p class="text-center">{{ quote }}</p>
+      <p class="text-center">{{ quote | toLowerCase }}</p>
     </div>
   </div>
 </template>
@@ -9,7 +9,6 @@
 <script>
 export default {
   name: 'Quote',
-
   props: {
     quote: String
   }

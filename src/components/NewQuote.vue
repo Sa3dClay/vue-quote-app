@@ -17,16 +17,14 @@
 <script>
 export default {
   name: 'NewQuote',
-
   data () {
     return {
       quote: ''
     }
   },
-
   methods: {
     AddQuote () {
-      this.$emit('newQuote', this.quote)
+      this.$emit('newQuote', this.quote.toLowerCase())
       this.quote = ''
     }
   }

@@ -1,5 +1,9 @@
 <template>
   <div class="home">
+    <div class="head">
+      <h2 class="title text-center">{{ 'Quote App' | toUpperCase }}</h2>
+    </div>
+
     <Header :quoteCounter="quotes.length" :maxNofQuotes="maxQuotes"/>
     
     <NewQuote @newQuote="addQuote"/>
@@ -23,22 +27,24 @@ import Swal from 'sweetalert2'
 
 export default {
   name: 'Home',
-  
   components: {
     QuoteGrid,
     NewQuote,
     Header
   },
-
+  filters: {
+    toUpperCase(val) {
+      return val.toUpperCase()
+    }
+  },
   data () {
     return {
       quotes: [
-        'This is test quote'
+        'this is test quote'
       ],
       maxQuotes: 12
     }
   },
-
   methods: {
     addQuote (quote) {
       if (this.quotes.length >= this.maxQuotes) {
@@ -59,7 +65,6 @@ export default {
         }
       }
     },
-
     deleteQuote (index) {
       Swal.fire({
         title: 'Are you sure?',
@@ -93,5 +98,14 @@ export default {
   font-size: 22px;
   padding: 10px;
   margin: 0;
+}
+.head {
+  padding-top: 40px;
+  background-color: #3F51B5;
+  color: #fff;
+}
+.head .title {
+  margin: 0;
+  font-family: 'Caveat', cursive;
 }
 </style>

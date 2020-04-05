@@ -13,6 +13,10 @@ import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.config.productionTip = false
 
+Vue.filter('toLowerCase', (val) => {
+  return val.toLowerCase();
+})
+
 new Vue({
   router,
   render: h => h(App)
