@@ -1,1 +1,3 @@
-export const publicPath = '/vue-quote-app/';
+module.exports = {
+  publicPath: '/vue-quote-app/'
+}
