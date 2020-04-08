@@ -6,10 +6,16 @@
           v-model="filteredQuotes">
       </div>
     </form>
-    <div class="row d-flex justify-content-center">
-      <Quote v-for="(quote, index) in filterQuotes" :key="index" :quote="quote" @click.native="deleteQuote(index)"
+    <transition-group
+      enter-active-class="animated rubberBand"
+      leave-active-class="animated fadeOut"
+      class="row d-flex justify-content-center"
+    >
+      <Quote v-for="(quote, index) in filterQuotes"
+        :key="index+0" :quote="quote"
+        @click.native="deleteQuote(index)"
         class="col-sm-5 col-md-4 col-lg-3"/>
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -49,7 +55,7 @@ export default {
   background-color: #3F51B5;
 }
 .search {
-  padding-top: 20px;
+  padding: 20px 0;
   font-family: 'Caveat', cursive;
 }
 .search .form-control {
