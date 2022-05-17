@@ -39,9 +39,7 @@ export default {
   },
   data () {
     return {
-      quotes: [
-        'this is test quote'
-      ],
+      quotes: [],
       maxQuotes: 12
     }
   },
@@ -62,6 +60,7 @@ export default {
           })
         } else {
           this.quotes.push(quote)
+          localStorage.setItem('quotes', this.quotes.toString())
         }
       }
     },
@@ -78,6 +77,7 @@ export default {
         if (result.value) {
 
           this.quotes.splice(index, 1)
+          localStorage.setItem('quotes', this.quotes)
 
           Swal.fire({
             title: 'Your quote has been deleted.',
@@ -87,7 +87,14 @@ export default {
           })
         }
       })
+    },
+    getOldQuotes() {
+      let oldQuotes = localStorage.getItem('quotes').split(',')
+      this.quotes = oldQuotes
     }
+  },
+  created() {
+    this.getOldQuotes()
   }
 }
 </script>
